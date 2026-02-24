@@ -1,0 +1,1396 @@
+// =============================================================================
+// SalonPage.module.scss
+// Azure Beauty Salon — Full CSS Module
+// =============================================================================
+
+// ── FONT IMPORT ───────────────────────────────────────────────────────────────
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap");
+
+// ── DESIGN TOKENS ─────────────────────────────────────────────────────────────
+
+// Colours
+$ivory: #faf8f4;
+$parchment: #f4f0e8;
+$sand: #ece8dc;
+$driftwood: #d4c8b4;
+$taupe: #b09070;
+$umber: #7a6e62;
+$espresso: #5a5048;
+$ink: #2d2820;
+
+$ocean-deep: #1a3a4a;
+$ocean-mid: #2a5a6a;
+$ocean-teal: #3a7a6a;
+$turquoise: #5a9a7a;
+$seafoam: #8ab8a0;
+$mist: #c4d4c0;
+
+$whatsapp: #25d366;
+$whatsapp-dark: #128c7e;
+
+// Border helpers
+$border-light: rgba(180, 160, 130, 0.2);
+$border-mid: rgba(180, 160, 130, 0.35);
+
+// Typography
+$font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+$font-body: "Jost", "Helvetica Neue", Helvetica, sans-serif;
+
+// Spacing
+$section-pad: clamp(64px, 10vw, 100px) clamp(16px, 5vw, 24px);
+
+// Breakpoints
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1200px;
+
+// ── CSS CUSTOM PROPERTIES ─────────────────────────────────────────────────────
+
+.page {
+  --bg-primary: #{$ivory};
+  --bg-secondary: #{$parchment};
+  --border-light: #{$border-light};
+  --accent: #{$taupe};
+  --text-primary: #{$ink};
+  --text-body: #{$espresso};
+  --text-muted: #{$umber};
+
+  font-family: $font-body;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ── KEYFRAME ANIMATIONS ───────────────────────────────────────────────────────
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes waPulse {
+  0%,
+  100% {
+    box-shadow: 0 4px 20px rgba($whatsapp, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 36px rgba($whatsapp, 0.68);
+  }
+}
+
+@keyframes orbit1 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbit2 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes orbit3 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── SCROLL ANIMATION UTILITY ──────────────────────────────────────────────────
+
+.animSection {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s ease;
+  will-change: opacity, transform;
+}
+
+.animVisible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+// Cards that manage their own animation state
+.techCard.animVisible,
+.procCard.animVisible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+// No-JS / scripting disabled fallback
+@media (scripting: none) {
+  .animSection,
+  .techCard,
+  .procCard {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+// ── LAYOUT HELPERS ────────────────────────────────────────────────────────────
+
+.container {
+  max-width: $bp-xl;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 24px);
+}
+
+.section {
+  padding: $section-pad;
+}
+
+.sectionHead {
+  text-align: center;
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+.sectionLine {
+  display: inline-block;
+  width: 40px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 16px;
+}
+
+.sectionLineLight {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.sectionTitle {
+  font-family: $font-display;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 300;
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+
+.sectionTitleLight {
+  color: #fff;
+}
+
+.sectionSub {
+  font-size: clamp(14px, 2vw, 16px);
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+.sectionSubLight {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sectionHeadLight .sectionLine {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.divider {
+  max-width: $bp-xl;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 24px);
+  height: 1px;
+  background: linear-gradient(to right, transparent, $border-mid, transparent);
+}
+
+// ── FLOATING WHATSAPP BUTTON ──────────────────────────────────────────────────
+
+.waFloat {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: $whatsapp;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba($whatsapp, 0.4);
+  animation: waPulse 2.5s ease-in-out infinite;
+  transition: transform 0.2s ease;
+
+  svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  &:hover {
+    transform: scale(1.08);
+  }
+
+  @media (max-width: $bp-sm) {
+    bottom: 16px;
+    right: 16px;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+// ── BUTTONS ───────────────────────────────────────────────────────────────────
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-family: $font-body;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  white-space: nowrap;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btnLg {
+  padding: 18px 40px;
+  font-size: 15px;
+}
+
+.btnPrimary {
+  background: #fff;
+  color: $ink;
+  box-shadow: 0 8px 24px rgba($ink, 0.18);
+
+  &:hover {
+    box-shadow: 0 12px 36px rgba($ink, 0.26);
+  }
+}
+
+.btnWa {
+  background: $whatsapp;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba($whatsapp, 0.35);
+
+  &:hover {
+    box-shadow: 0 8px 28px rgba($whatsapp, 0.5);
+  }
+}
+
+// ── NAVBAR ────────────────────────────────────────────────────────────────────
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 clamp(16px, 4vw, 24px);
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease,
+    backdrop-filter 0.4s ease;
+}
+
+.navbarScrolled {
+  background: rgba($ivory, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid $border-light;
+}
+
+.navbar__inner {
+  max-width: $bp-xl;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  gap: 2px;
+}
+
+.logo__name {
+  font-family: $font-display;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: #fff;
+  transition: color 0.4s ease;
+}
+.logo__nameDark {
+  color: $ink;
+}
+
+.logo__sub {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.4s ease;
+}
+.logo__subDark {
+  color: var(--accent);
+}
+
+.desktopNav {
+  display: none;
+  gap: 28px;
+  align-items: center;
+
+  @media (min-width: $bp-lg) {
+    display: flex;
+  }
+}
+
+.desktopNav__link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: $font-body;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.9);
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+.desktopNav__linkDark {
+  color: var(--text-muted);
+}
+
+.navbar__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.langSwitcher {
+  display: flex;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  padding: 3px;
+  transition: background 0.4s ease;
+}
+.langSwitcherDark {
+  background: rgba(180, 160, 130, 0.12);
+}
+
+.langBtn {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: none;
+  cursor: pointer;
+  font-family: $font-body;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.06em;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.langBtnActiveLight {
+  background: rgba(255, 255, 255, 0.9);
+  color: $ink;
+}
+.langBtnActiveDark {
+  background: $ink;
+  color: $ivory;
+}
+
+.menuToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  transition: color 0.4s ease;
+  padding: 4px;
+}
+.menuToggleDark {
+  color: $ink;
+}
+
+.mobileMenu {
+  background: rgba($ivory, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid $border-light;
+  padding: 12px clamp(16px, 4vw, 24px) 24px;
+}
+
+.mobileMenu__link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(180, 160, 130, 0.12);
+  cursor: pointer;
+  padding: 14px 0;
+  font-family: $font-body;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: $ink;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--accent);
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+// ── HERO ──────────────────────────────────────────────────────────────────────
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    #{$ocean-deep} 0%,
+    #{$ocean-mid} 30%,
+    #{$ocean-teal} 55%,
+    #{$turquoise} 75%,
+    #{$seafoam} 90%,
+    #{$mist} 100%
+  );
+}
+
+.hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.hero__orb1 {
+  width: clamp(340px, 55vw, 600px);
+  height: clamp(340px, 55vw, 600px);
+  top: -80px;
+  right: -80px;
+  opacity: 0.08;
+  animation: orbit1 22s linear infinite;
+}
+
+.hero__orb2 {
+  width: clamp(220px, 38vw, 420px);
+  height: clamp(220px, 38vw, 420px);
+  bottom: 40px;
+  left: -60px;
+  opacity: 0.07;
+  animation: orbit2 30s linear infinite;
+}
+
+.hero__orb3 {
+  width: clamp(140px, 22vw, 260px);
+  height: clamp(140px, 22vw, 260px);
+  top: 42%;
+  left: 38%;
+  opacity: 0.05;
+  animation: orbit3 18s linear infinite;
+}
+
+.hero__sandOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(200, 175, 140, 0.18), transparent);
+  pointer-events: none;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 100px clamp(20px, 6vw, 40px) 80px;
+  max-width: 760px;
+  width: 100%;
+}
+
+.hero__badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  padding: 8px 22px;
+  margin-bottom: 32px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  animation: heroFadeUp 0.9s ease 0s both;
+}
+
+.hero__headline {
+  font-family: $font-display;
+  font-size: clamp(44px, 9vw, 80px);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  animation: heroFadeUp 0.9s ease 0.15s both;
+
+  em {
+    font-style: italic;
+    font-weight: 300;
+  }
+}
+
+.hero__sub {
+  margin-top: 24px;
+  font-size: clamp(15px, 3vw, 18px);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: heroFadeUp 0.9s ease 0.3s both;
+}
+
+.hero__cta {
+  margin-top: 40px;
+  animation: heroFadeUp 0.9s ease 0.45s both;
+}
+
+.hero__scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 60px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  animation: heroFadeUp 0.9s ease 0.6s both;
+}
+
+.hero__scrollLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hero__scrollChevron {
+  color: rgba(255, 255, 255, 0.55);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.waveDivider {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 60px;
+  }
+}
+
+// ── TECHNOLOGIES GRID ─────────────────────────────────────────────────────────
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.techCard {
+  // Base animation state — overridden by .animVisible
+  opacity: 0;
+  transform: translateY(40px);
+
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $border-light;
+  border-radius: 20px;
+  padding: clamp(24px, 4vw, 32px) clamp(20px, 3.5vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  // Single unified transition
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease,
+    box-shadow 0.3s ease;
+  will-change: opacity, transform;
+
+  &:hover {
+    box-shadow: 0 12px 40px rgba($ink, 0.08);
+  }
+}
+
+.techCard__icon {
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.techCard__title {
+  font-family: $font-display;
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 600;
+  color: $ink;
+  letter-spacing: 0.01em;
+}
+
+.techCard__desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.techCard__meta {
+  padding-top: 12px;
+  border-top: 1px solid $border-light;
+}
+
+.techCard__metaLabel {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.techCard__metaText {
+  font-size: 13px;
+  color: $espresso;
+  line-height: 1.65;
+}
+
+// ── PROCEDURES GRID ───────────────────────────────────────────────────────────
+
+.procGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Card colour variants
+$card-palettes: (
+  0: (
+    #f0ece4,
+    #e8ddd0,
+  ),
+  1: (
+    #e8f4f4,
+    #d4ecec,
+  ),
+  2: (
+    #f4ede8,
+    #ecddd4,
+  ),
+  3: (
+    #e8ecf0,
+    #d8e4ec,
+  ),
+  4: (
+    #f0e8ec,
+    #e8d4dc,
+  ),
+  5: (
+    #edf0e8,
+    #dce8d4,
+  ),
+  6: (
+    #f4f0e0,
+    #ece8cc,
+  ),
+  7: (
+    #e8f0f4,
+    #d4e8f0,
+  ),
+  8: (
+    #f0ece0,
+    #e8e0cc,
+  ),
+);
+
+@each $idx, $pair in $card-palettes {
+  $from: nth($pair, 1);
+  $to: nth($pair, 2);
+
+  .cardColor#{$idx} {
+    background: linear-gradient(145deg, #{$from}, #{$to});
+  }
+}
+
+.procCard {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s ease,
+    box-shadow 0.3s ease;
+  will-change: opacity, transform;
+  border: 1px solid rgba(180, 160, 130, 0.25);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    box-shadow: 0 16px 48px rgba($ink, 0.1);
+  }
+
+  // Only apply hover lift after animation has completed
+  &.animVisible:hover {
+    transform: translateY(-4px) !important;
+  }
+}
+
+.procCard__body {
+  flex: 1;
+  padding: clamp(20px, 4vw, 28px);
+}
+
+.procCard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.procCard__title {
+  font-family: $font-display;
+  font-size: clamp(20px, 4vw, 24px);
+  font-weight: 600;
+  color: $ink;
+  line-height: 1.2;
+  flex: 1;
+}
+
+.procCard__tag {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: $ink;
+  color: $ivory;
+  padding: 4px 11px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.procCard__duration {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.procCard__desc {
+  font-size: 14px;
+  color: $espresso;
+  line-height: 1.78;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.procCard__descExpanded {
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+}
+
+.procCard__toggle {
+  background: none;
+  border: none;
+  padding: 4px 0;
+  cursor: pointer;
+  font-family: $font-body;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+.procCard__benefits {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+}
+
+.procCard__metaLabel {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.procCard__benefitList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.procCard__benefitTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: $ink;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid $border-light;
+}
+
+.procCard__indications {
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+}
+
+.procCard__indicationsText {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-top: 4px;
+}
+
+.procCard__footer {
+  padding: clamp(16px, 3vw, 20px) clamp(20px, 4vw, 28px);
+  border-top: 1px solid rgba(180, 160, 130, 0.2);
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.procCard__price {
+  font-family: $font-display;
+  font-size: clamp(22px, 4vw, 28px);
+  font-weight: 700;
+  color: $ink;
+}
+
+// ── BOOKING SECTION ───────────────────────────────────────────────────────────
+
+.bookingSection {
+  position: relative;
+  padding: $section-pad;
+  background: linear-gradient(160deg, $ocean-deep, $ocean-mid, $ocean-teal);
+  overflow: hidden;
+}
+
+.bookingSection__dots {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    );
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  margin-bottom: 48px;
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.stepCard {
+  text-align: center;
+  padding: 28px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stepCard__num {
+  display: block;
+  font-family: $font-display;
+  font-size: 42px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.22);
+  margin-bottom: 8px;
+}
+
+.stepCard__label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+.bookingCta {
+  text-align: center;
+}
+
+.bookingCta__note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+// ── ABOUT ─────────────────────────────────────────────────────────────────────
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(40px, 6vw, 64px);
+  align-items: center;
+  margin-bottom: clamp(48px, 8vw, 72px);
+}
+
+.about__sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 28px;
+  margin-top: 8px;
+}
+
+.about__body {
+  font-size: 15px;
+  color: $espresso;
+  line-height: 1.85;
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.about__bodyItalic {
+  font-style: italic;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.statCard {
+  padding: clamp(20px, 3vw, 28px) 16px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid $border-light;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statCardSand {
+  background: linear-gradient(145deg, #f4f0e8, #ece8dc);
+}
+.statCardTeal {
+  background: linear-gradient(145deg, #e8f4f4, #d8ecec);
+}
+
+.statCard__num {
+  display: block;
+  font-family: $font-display;
+  font-size: clamp(30px, 5vw, 38px);
+  font-weight: 600;
+  color: $ink;
+}
+
+.statCard__label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.reviewsRow {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    height: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $sand;
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $driftwood;
+    border-radius: 3px;
+  }
+}
+
+.reviewCard {
+  flex: 0 0 auto;
+  min-width: clamp(240px, 70vw, 300px);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid $border-light;
+  border-radius: 20px;
+  padding: 24px;
+  scroll-snap-align: start;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 32px rgba($ink, 0.08);
+  }
+}
+
+.reviewCard__stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+
+.reviewCard__text {
+  font-size: 13px;
+  color: $espresso;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.reviewCard__author {
+  font-size: 12px;
+  font-weight: 700;
+  color: $ink;
+}
+
+// ── CONTACT SECTION ───────────────────────────────────────────────────────────
+
+.contactSection {
+  padding: $section-pad;
+  background: $parchment;
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 24px;
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contactCard {
+  padding: clamp(24px, 4vw, 32px);
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid $border-light;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contactCard__icon {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.contactCard__title {
+  font-family: $font-display;
+  font-size: 20px;
+  font-weight: 500;
+  color: $ink;
+  margin-bottom: 12px;
+}
+
+.contactCard__text {
+  font-size: 14px;
+  color: $espresso;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.contactCard__hours {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.mapWrapper {
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 280px;
+  border: 1px solid $border-light;
+
+  iframe {
+    display: block;
+    width: 100%;
+    min-height: 280px;
+    height: 100%;
+    border: 0;
+  }
+}
+
+.qrRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid $border-light;
+}
+
+.qrBox {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  background: $ink;
+  border-radius: 8px;
+  padding: 6px;
+
+  // Decorative QR look — replace with real QR <Image>
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.12) 3px,
+      rgba(255, 255, 255, 0.12) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.12) 3px,
+      rgba(255, 255, 255, 0.12) 4px
+    ),
+    radial-gradient(
+      ellipse at 25% 25%,
+      rgba(255, 255, 255, 0.9) 6px,
+      transparent 6px
+    ),
+    radial-gradient(
+      ellipse at 75% 25%,
+      rgba(255, 255, 255, 0.9) 6px,
+      transparent 6px
+    ),
+    radial-gradient(
+      ellipse at 25% 75%,
+      rgba(255, 255, 255, 0.9) 6px,
+      transparent 6px
+    );
+}
+
+.qrRow__label {
+  font-size: 13px;
+  font-weight: 700;
+  color: $ink;
+  margin-bottom: 4px;
+}
+
+.qrRow__note {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+// ── FOOTER ────────────────────────────────────────────────────────────────────
+
+.footer {
+  padding: 28px clamp(16px, 5vw, 24px);
+  background: $ink;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__copy {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.04em;
+}
+
+.footer__privacy {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: $font-body;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.65);
+  }
+}
+
+// ── SCROLLBAR ─────────────────────────────────────────────────────────────────
+
+:global(::-webkit-scrollbar) {
+  width: 4px;
+}
+:global(::-webkit-scrollbar-track) {
+  background: $sand;
+}
+:global(::-webkit-scrollbar-thumb) {
+  background: $driftwood;
+  border-radius: 4px;
+}
+
+// ── REDUCED MOTION ────────────────────────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .animSection,
+  .techCard,
+  .procCard,
+  .hero__badge,
+  .hero__headline,
+  .hero__sub,
+  .hero__cta,
+  .hero__scroll {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .waFloat {
+    animation: none;
+  }
+  .hero__orb1,
+  .hero__orb2,
+  .hero__orb3 {
+    animation: none;
+  }
+  .hero__scrollChevron {
+    animation: none;
+  }
+
+  // Preserve hover box-shadows even with reduced motion
+  .procCard:hover {
+    box-shadow: 0 16px 48px rgba($ink, 0.1);
+  }
+  .techCard:hover {
+    box-shadow: 0 12px 40px rgba($ink, 0.08);
+  }
+}
